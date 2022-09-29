@@ -1,12 +1,12 @@
-# Build Photino.NET project from prod branch in GitHub
+# Build Photino.NET.Server project from prod branch in GitHub
 # https://docs.microsoft.com/azure/devops/pipelines/languages/dotnet-core
 
 trigger:
 - manual
 
 variables:
-    major: 2
-    minor: 2
+    major: 1
+    minor: 0
     patch: $[counter(variables['minor'], 0)] #this will reset when we bump minor
     buildConfiguration: 'Release'
 
@@ -28,7 +28,7 @@ jobs:
     - task: CmdLine@2
       displayName: 'Build and Create NuGet package'
       inputs:
-        script: 'dotnet pack Photino.NET/Photino.NET.csproj -c $(buildConfiguration) /p:Version=$(major).$(minor).$(patch) /p:PackageVersion=$(major).$(minor).$(patch)'
+        script: 'dotnet pack Photino.NET.Server/Photino.NET.Server.csproj -c $(buildConfiguration) /p:Version=$(major).$(minor).$(patch) /p:PackageVersion=$(major).$(minor).$(patch)'
 
   # Uploads the NuGet package file to nuget.org
   # Important notes:
@@ -42,6 +42,6 @@ jobs:
       condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/master'))
       inputs:
         command: push
-        packagesToPush: 'Photino.NET/bin/$(buildConfiguration)/*.nupkg'
+        packagesToPush: 'Photino.NET.Server/bin/$(buildConfiguration)/*.nupkg'
         nuGetFeedType: external
         publishFeedCredentials: 'PhotinoNetNuGet'
