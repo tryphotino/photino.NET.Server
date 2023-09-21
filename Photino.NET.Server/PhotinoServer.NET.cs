@@ -72,6 +72,7 @@ public class PhotinoServer
         builder.WebHost.UseUrls(baseUrl);
 
         WebApplication app = builder.Build();
+        app.UseDefaultFiles();
         app.UseStaticFiles(new StaticFileOptions
         {
             DefaultContentType = "text/plain"
