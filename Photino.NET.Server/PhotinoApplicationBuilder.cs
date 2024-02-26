@@ -24,6 +24,7 @@ public static class PhotinoApplicationBuilder
     {
         var builder = WebApplication.CreateBuilder(options);
 
+        builder.Services.AddSingleton(new PhotinoWindow());
         builder.Services.AddSingleton<PhotinoDevelopmentServer>();
         builder.Services.Configure<PhotinoDevelopmentServerOptions>(options =>
         {

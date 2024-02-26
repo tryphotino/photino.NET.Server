@@ -15,7 +15,7 @@ public static class PhotinoApplicationExtensions
 
         app.RunAsync();
 
-        var window = new PhotinoWindow();
+        var window = app.Services.GetRequiredService<PhotinoWindow>();
 
         window.WindowClosing += (s, e) => !app.StopAsync()
             .Wait(TimeSpan.FromSeconds(10));
