@@ -1,0 +1,10 @@
+{
+  "profiles": {
+    "Photino.NET.Server.Sample": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "DOTNET_ENVIRONMENT": "Development"
+      }
+    }
+  }
+}

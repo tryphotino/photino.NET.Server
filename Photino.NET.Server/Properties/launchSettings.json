@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Photino.NET.Server": {
+      "commandName": "Project",
+      "launchBrowser": true,
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "applicationUrl": "https://localhost:50285;http://localhost:50286"
+    }
+  }
+}
