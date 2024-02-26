@@ -1,31 +1,37 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
-  <PropertyGroup>
-    <Authors>TryPhotino</Authors>
-    <Company>TryPhotino</Company>
-    <Description>Optional .NET Static File Server to serve web app files in a localhost environment and to prevent CORS and similar issues.</Description>
-    <GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);SetPackageVersion</GenerateNuspecDependsOn>
-    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <PackageDescription>Optional .NET Static File Server to serve web app files in a localhost environment and to prevent CORS and similar issues.</PackageDescription>
-    <PackageId>Photino.NET.Server</PackageId>
-    <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
-    <Product>Photino.NET.Server</Product>
-    <PackageProjectUrl>https://github.com/tryphotino/photino.NET.Server</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/tryphotino/photino.NET.Server</RepositoryUrl>
-    <Title>PhotinoNET Server</Title>
-    <RootNamespace>PhotinoNET</RootNamespace>
-  </PropertyGroup>
-  
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <TargetFramework>net6.0</TargetFramework>
-    <IsPackable>true</IsPackable> 
-  </PropertyGroup>
+	<PropertyGroup>
+		<Authors>TryPhotino</Authors>
+		<Company>TryPhotino</Company>
+		<Description>Optional .NET Static File Server to serve web app files in a localhost environment and to prevent CORS and similar issues.</Description>
+		<GenerateNuspecDependsOn>$(GenerateNuspecDependsOn);SetPackageVersion</GenerateNuspecDependsOn>
+		<GeneratePackageOnBuild>false</GeneratePackageOnBuild>
+		<PackageDescription>Optional .NET Static File Server to serve web app files in a localhost environment and to prevent CORS and similar issues.</PackageDescription>
+		<PackageId>Photino.NET.Server</PackageId>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<Product>Photino.NET.Server</Product>
+		<PackageProjectUrl>https://github.com/tryphotino/photino.NET.Server</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/tryphotino/photino.NET.Server</RepositoryUrl>
+		<Title>Photino.NET Server</Title>
+		<RootNamespace>Photino.NET</RootNamespace>
+	</PropertyGroup>
 
-  <Target Name="SetPackageVersion" DependsOnTargets="Build">
-    <PropertyGroup>
-      <PackageVersion>$(Version)</PackageVersion>
-    </PropertyGroup>
-  </Target>
+	<PropertyGroup>
+		<TargetFrameworks>net6.0;net7.0;net8.0</TargetFrameworks>
+		<ImplicitUsings>true</ImplicitUsings>
+		<LangVersion>latest</LangVersion>
+		<OutputType>Library</OutputType>
+		<IsPackable>true</IsPackable>
+	</PropertyGroup>
+
+	<Target Name="SetPackageVersion" DependsOnTargets="Build">
+		<PropertyGroup>
+			<PackageVersion>$(Version)</PackageVersion>
+		</PropertyGroup>
+	</Target>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Photino.NET\Photino.NET\Photino.NET.csproj" />
+	</ItemGroup>
 
 </Project>
