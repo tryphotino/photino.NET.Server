@@ -95,7 +95,7 @@ public partial class PhotinoDevelopmentServer(IHostApplicationLifetime lifetime,
         lifetime.ApplicationStopping.Register(() =>
         {
             process.Kill(true);
-            process.WaitForExit();
+            process.WaitForExit(5000);
         });
     }
 }
