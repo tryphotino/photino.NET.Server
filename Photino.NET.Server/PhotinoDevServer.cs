@@ -27,7 +27,7 @@ public partial class PhotinoDevelopmentServer(IHostApplicationLifetime lifetime,
 
         if (httpIndex == -1) return null;
 
-        var host = withoutColorCodes[httpIndex..].TrimEnd('/');
+        var host = withoutColorCodes[httpIndex..];
 
         return new Uri(host);
     }
