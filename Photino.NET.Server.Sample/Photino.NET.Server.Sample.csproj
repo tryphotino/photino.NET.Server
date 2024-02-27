@@ -6,9 +6,9 @@
 		<ImplicitUsings>enable</ImplicitUsings>
 		<TargetFramework>net8.0</TargetFramework>
 
-		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
-
+		<!-- Photino Configurations -->
 		<UiRoot>Interface\</UiRoot>
+		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
 		<DefaultItemExcludes>$(DefaultItemExcludes);$(UiRoot)node_modules\**</DefaultItemExcludes>
 	</PropertyGroup>
 
@@ -17,6 +17,10 @@
 		<Content Remove="$(UiRoot)**" />
 		<None Remove="$(UiRoot)**" />
 		<None Include="$(UiRoot)**" Exclude="$(UiRoot)node_modules\**" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.1" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -29,23 +33,19 @@
 			<Output TaskParameter="ExitCode" PropertyName="ErrorCode" />
 		</Exec>
 		<Error Condition="'$(ErrorCode)' != '0'" Text="Node.js is required to build and run this project. To continue, please install Node.js from https://nodejs.org/, and then restart your command prompt or IDE." />
-		<Message Importance="high" Text="Restoring dependencies using 'npm'. This may take several minutes..." />
-		<Exec WorkingDirectory="$(UiRoot)" Command="npm install" />
+		<Message Importance="high" Text="Restoring dependencies using 'pnpm'. This may take several minutes..." />
+		<Exec WorkingDirectory="$(UiRoot)" Command="pnpm install" />
 	</Target>
 
-	<Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+	<Target Name="PublishRunBundler" AfterTargets="PrepareForBuild" Condition=" '$(Configuration)' == 'Release' ">
 		<!-- As part of publishing, ensure the JS resources are freshly built in production mode -->
-		<Exec WorkingDirectory="$(UiRoot)" Command="npm install" />
-		<Exec WorkingDirectory="$(UiRoot)" Command="npm run build" />
+		<Exec WorkingDirectory="$(UiRoot)" Command="pnpm install" />
+		<Exec WorkingDirectory="$(UiRoot)" Command="pnpm build" />
 
 		<!-- Include the newly-built files in the publish output -->
 		<ItemGroup>
 			<DistFiles Include="$(UiRoot)dist\**" />
-			<ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-				<RelativePath>wwwroot\%(RecursiveDir)%(FileName)%(Extension)</RelativePath>
-				<CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-				<ExcludeFromSingleFile>true</ExcludeFromSingleFile>
-			</ResolvedFileToPublish>
+			<EmbeddedResource Include="@(DistFiles->'%(FullPath)')" LogicalName="wwwroot\%(RecursiveDir)%(FileName)%(Extension)" />
 		</ItemGroup>
 	</Target>
 

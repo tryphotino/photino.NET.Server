@@ -24,14 +24,14 @@
 		<IsPackable>true</IsPackable>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Photino.NET\Photino.NET\Photino.NET.csproj" />
+	</ItemGroup>
+
 	<Target Name="SetPackageVersion" DependsOnTargets="Build">
 		<PropertyGroup>
 			<PackageVersion>$(Version)</PackageVersion>
 		</PropertyGroup>
 	</Target>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\..\Photino.NET\Photino.NET\Photino.NET.csproj" />
-	</ItemGroup>
 
 </Project>

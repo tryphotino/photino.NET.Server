@@ -1,8 +1,10 @@
+using Microsoft.Extensions.FileProviders;
 using Photino.NET.Extensions;
 using Photino.NET.Options;
 using Photino.NET.Server;
 using System.Net;
 using System.Net.NetworkInformation;
+using System.Reflection;
 
 namespace Photino.NET;
 
@@ -35,19 +37,13 @@ public static class PhotinoApplicationBuilder
         });
 
         // TODO: Even in the published version the application is a bit slow to start. due the server starting,
-        //       see if there is a better way, maybe with the embedded provider
+        //       see if there is a better way, also the program is generating the wwwroot folder anyway
 
-        //if (!builder.Environment.IsDevelopment())
-        //{
-        //    var manifestEmbeddedFileProvider = new ManifestEmbeddedFileProvider(
-        //        Assembly.GetEntryAssembly(), $"Resources/{options.WebRootPath}");
-
-        //    var physicalFileProvider = builder.Environment.WebRootFileProvider;
-
-        //    CompositeFileProvider compositeWebProvider = new(manifestEmbeddedFileProvider, physicalFileProvider);
-
-        //    builder.Environment.WebRootFileProvider = compositeWebProvider;
-        //}
+        if (!builder.Environment.IsDevelopment())
+        {
+            var embeddedFileProvider = new ManifestEmbeddedFileProvider(Assembly.GetEntryAssembly(), options.WebRootPath);
+            builder.Environment.WebRootFileProvider = embeddedFileProvider;
+        }
 
         var port = GetAvailablePort(options.StartingPort, options.PortRange);
         if (port == 0)
