@@ -1,7 +1,3 @@
 ﻿namespace Photino.NET;
 
-public class PhotinoApplication
-{
-    public WebApplication App { get; init; }
-    public PhotinoWindow MainWindow { get; init; }
-}
+public record PhotinoApplication(WebApplication App, PhotinoWindow Window);
