@@ -19,7 +19,6 @@ internal class Program
             .SetTitle(WINDOW_TITLE)
             .SetUseOsDefaultSize(false)
             .SetSize(2000, 1500)
-            // .SetIconFile("Resources/photino-logo.ico")
             .RegisterCustomSchemeHandler("app", (object sender, string scheme, string url, out string contentType) =>
             {
                 contentType = "text/javascript";
