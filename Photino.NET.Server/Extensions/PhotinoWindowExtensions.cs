@@ -14,10 +14,12 @@ public static class PhotinoWindowExtensions
             if (!devserver.WaitForStartup())
                 throw new InvalidOperationException("Can't start development server");
 
+            window.SetDevToolsEnabled(true);
             window.Load(devserver.Url);
         }
         else
         {
+            window.SetDevToolsEnabled(false);
             window.Load($"{baseUrl}/index.html");
         }
 
