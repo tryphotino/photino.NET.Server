@@ -5,18 +5,45 @@ using System.Text.RegularExpressions;
 
 namespace Photino.NET.Server;
 
+/// <summary>
+/// Represents the Photino Development Server for serving static files during development.
+/// </summary>
+/// <remarks>
+/// Initializes a new instance of the <see cref="PhotinoDevelopmentServer"/> class.
+/// </remarks>
+/// <param name="lifetime">Application lifetime interface.</param>
+/// <param name="environment">WebHost environment.</param>
+/// <param name="options">Options for configuring the Photino Development Server.</param>
 public partial class PhotinoDevelopmentServer(IHostApplicationLifetime lifetime, IWebHostEnvironment environment, IOptions<PhotinoDevelopmentServerOptions> options)
 {
     private readonly PhotinoDevelopmentServerOptions options = options.Value;
+    private readonly IHostApplicationLifetime lifetime = lifetime;
+    private readonly IWebHostEnvironment environment = environment;
 
-    public Uri Url { get; set; }
+    /// <summary>
+    /// Gets the URL of the Photino Development Server.
+    /// </summary>
+    public Uri Url { get; protected set; }
 
+    /// <summary>
+    /// Starts the Photino Development Server asynchronously.
+    /// </summary>
+    /// <returns>A task representing the asynchronous operation.</returns>
     public Task StartAsync() => Task.Factory.StartNew(StartProcess, TaskCreationOptions.LongRunning);
 
+    /// <summary>
+    /// Waits for the server to start up, with a timeout.
+    /// </summary>
+    /// <returns>True if the server started successfully within the timeout; otherwise, false.</returns>
     public bool WaitForStartup() => SpinWait.SpinUntil(() => Url is not null, options.WaitUntilReadyTimeout);
 
 #if NET7_0_OR_GREATER
 
+    /// <summary>
+    /// Determines the URL of the Photino Development Server from the output data.
+    /// </summary>
+    /// <param name="data">Output data from the server process.</param>
+    /// <returns>The URL of the server, or null if not found.</returns>
     private static Uri DetermineDevServerUrl(string data)
     {
         var withoutUnicodes = GetUnicodeCharacterRegex().Replace(data, string.Empty); ;
@@ -40,6 +67,11 @@ public partial class PhotinoDevelopmentServer(IHostApplicationLifetime lifetime,
 
 #else
 
+    /// <summary>
+    /// Determines the URL of the Photino Development Server from the output data.
+    /// </summary>
+    /// <param name="data">Output data from the server process.</param>
+    /// <returns>The URL of the server, or null if not found.</returns>
     private static Uri DetermineDevServerUrl(string data)
     {
         var withoutUnicodes = Regex.Replace(@"[^\x20-\xaf]+", data, string.Empty); ;
@@ -57,6 +89,10 @@ public partial class PhotinoDevelopmentServer(IHostApplicationLifetime lifetime,
 
 #endif
 
+    /// <summary>
+    /// Gets the executable path based on the operating system.
+    /// </summary>
+    /// <returns>The executable path.</returns>
     private static string GetExecutablePath()
     {
         if (OperatingSystem.IsWindows()) return "powershell.exe";
@@ -65,6 +101,11 @@ public partial class PhotinoDevelopmentServer(IHostApplicationLifetime lifetime,
         else throw new NotSupportedException();
     }
 
+    /// <summary>
+    /// Event handler for receiving output data from the server process.
+    /// </summary>
+    /// <param name="sender">The sender of the event.</param>
+    /// <param name="e">Data received event arguments.</param>
     private void OnOutputDataReceived(object sender, DataReceivedEventArgs e)
     {
         Url ??= DetermineDevServerUrl(e.Data);

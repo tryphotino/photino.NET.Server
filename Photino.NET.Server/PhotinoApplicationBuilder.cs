@@ -14,6 +14,12 @@ namespace Photino.NET;
 /// </summary>
 public static class PhotinoApplicationBuilder
 {
+    /// <summary>
+    /// Creates a Photino web application builder with default options and retrieves the base URL.
+    /// </summary>
+    /// <param name="args">Command-line arguments.</param>
+    /// <param name="baseUrl">The base URL of the created web application.</param>
+    /// <returns>The configured Photino web application builder.</returns>
     public static WebApplicationBuilder CreatePhotinoBuilder(string[] args, out string baseUrl)
     {
         var options = PhotinoBuilderOptions.Default;
@@ -22,6 +28,12 @@ public static class PhotinoApplicationBuilder
         return CreatePhotinoBuilder(options, out baseUrl);
     }
 
+    /// <summary>
+    /// Creates a Photino web application builder with specified options and retrieves the base URL.
+    /// </summary>
+    /// <param name="options">Photino builder options.</param>
+    /// <param name="baseUrl">The base URL of the created web application.</param>
+    /// <returns>The configured Photino web application builder.</returns>
     public static WebApplicationBuilder CreatePhotinoBuilder(PhotinoBuilderOptions options, out string baseUrl)
     {
         var builder = WebApplication.CreateBuilder(options);
@@ -56,6 +68,12 @@ public static class PhotinoApplicationBuilder
         return builder;
     }
 
+    /// <summary>
+    /// Finds an available port within the specified range.
+    /// </summary>
+    /// <param name="startingPort">The starting port of the range.</param>
+    /// <param name="portRange">The range of ports to search.</param>
+    /// <returns>An available port within the specified range, or 0 if none is found.</returns>
     public static int GetAvailablePort(int startingPort, int portRange)
     {
         IPEndPoint[] endPoints;
