@@ -44,7 +44,7 @@ public static class PhotinoApplicationBuilder
         {
             options.IndexFile = "index.html";
             options.StartCommand = "npm run dev";
-            options.UserInterfacePath = "Interface";
+            options.UserInterfacePath = "UserInterface";
             options.WaitUntilReadyTimeout = TimeSpan.FromSeconds(10);
         });
 

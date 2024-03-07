@@ -7,7 +7,7 @@
 		<TargetFramework>net8.0</TargetFramework>
 
 		<!-- Photino Configurations -->
-		<UiRoot>Interface\</UiRoot>
+		<UiRoot>UserInterface\</UiRoot>
 		<DefaultItemExcludes>$(DefaultItemExcludes);$(UiRoot)node_modules\**</DefaultItemExcludes>
 		<GenerateEmbeddedFilesManifest Condition="'$(Configuration)' == 'Release'">true</GenerateEmbeddedFilesManifest>
 	</PropertyGroup>
