@@ -7,9 +7,9 @@
 		<TargetFramework>net8.0</TargetFramework>
 
 		<!-- Photino Configurations -->
-		<UiRoot>Interface\</UiRoot>
-		<GenerateEmbeddedFilesManifest>true</GenerateEmbeddedFilesManifest>
+		<UiRoot>UserInterface\</UiRoot>
 		<DefaultItemExcludes>$(DefaultItemExcludes);$(UiRoot)node_modules\**</DefaultItemExcludes>
+		<GenerateEmbeddedFilesManifest Condition="'$(Configuration)' == 'Release'">true</GenerateEmbeddedFilesManifest>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -20,7 +20,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.1" />
+		<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.1" Condition="'$(Configuration)' == 'Release'" />
 	</ItemGroup>
 
 	<ItemGroup>

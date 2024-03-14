@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
-using Photino.NET.Extensions;
+using Photino.NET.Options;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
 

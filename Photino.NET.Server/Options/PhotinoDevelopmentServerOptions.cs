@@ -1,4 +1,4 @@
-﻿namespace Photino.NET.Extensions;
+﻿namespace Photino.NET.Options;
 
 /// <summary>
 /// The PhotinoDevelopmentServerOptions class represents configuration options for the Photino development server.

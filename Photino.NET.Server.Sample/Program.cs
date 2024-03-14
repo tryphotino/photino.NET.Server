@@ -12,9 +12,9 @@ internal class Program
     {
         var builder = PhotinoApplicationBuilder.CreatePhotinoBuilder(args, out var baseUrl);
 
-        var (app, window) = builder.BuildApplication();
+        var photino = builder.BuildApplication();
 
-        window
+        photino.Window
             .Center()
             .SetTitle(WINDOW_TITLE)
             .SetUseOsDefaultSize(false)
@@ -47,6 +47,6 @@ internal class Program
                 window.SendWebMessage(response);
             });
 
-        window.Load(app, baseUrl);
+        photino.Run(baseUrl);
     }
 }
