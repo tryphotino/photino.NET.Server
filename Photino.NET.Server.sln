@@ -13,8 +13,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Photino.NET.Server.Sample", "Photino.NET.Server.Sample\Photino.NET.Server.Sample.csproj", "{289E9986-D8DE-4057-AA68-058275088485}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Photino.NET", "..\Photino.NET\Photino.NET\Photino.NET.csproj", "{AFB54B18-9D4E-4AC9-8766-0085CDFBC985}"
 EndProject
 Global
@@ -27,10 +25,6 @@ Global
 		{BB5C5BF0-D891-4005-BEC2-A654FCF02D5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BB5C5BF0-D891-4005-BEC2-A654FCF02D5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BB5C5BF0-D891-4005-BEC2-A654FCF02D5B}.Release|Any CPU.Build.0 = Release|Any CPU
-		{289E9986-D8DE-4057-AA68-058275088485}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{289E9986-D8DE-4057-AA68-058275088485}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{289E9986-D8DE-4057-AA68-058275088485}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{289E9986-D8DE-4057-AA68-058275088485}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AFB54B18-9D4E-4AC9-8766-0085CDFBC985}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFB54B18-9D4E-4AC9-8766-0085CDFBC985}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AFB54B18-9D4E-4AC9-8766-0085CDFBC985}.Release|Any CPU.ActiveCfg = Release|Any CPU
