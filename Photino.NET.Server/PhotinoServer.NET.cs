@@ -1,4 +1,5 @@
 using System;
+using System.IO;
 using System.Linq;
 using System.Net.NetworkInformation;
 using Microsoft.AspNetCore.Builder;
@@ -39,17 +40,26 @@ public class PhotinoServer
                 WebRootPath = webRootFolder
             });
 
-        var manifestEmbeddedFileProvider =
-            new ManifestEmbeddedFileProvider(
-                System.Reflection.Assembly.GetEntryAssembly(),
-                $"Resources/{webRootFolder}");
+        string embeddedResourcePath = $"Resources/{webRootFolder}";
 
-        var physicalFileProvider = builder.Environment.WebRootFileProvider;
+        if (Directory.Exists(embeddedResourcePath))
+        {
+            var manifestEmbeddedFileProvider =
+                new ManifestEmbeddedFileProvider(
+                    System.Reflection.Assembly.GetEntryAssembly(),
+                    embeddedResourcePath);
 
-        CompositeFileProvider compositeWebProvider
-            = new(manifestEmbeddedFileProvider, physicalFileProvider);
+            var physicalFileProvider = builder.Environment.WebRootFileProvider;
 
-        builder.Environment.WebRootFileProvider = compositeWebProvider;
+            CompositeFileProvider compositeWebProvider
+                = new(manifestEmbeddedFileProvider, physicalFileProvider);
+
+            builder.Environment.WebRootFileProvider = compositeWebProvider;
+        }
+        else
+        {
+            Console.Error.WriteLine($"The folder {webRootFolder} already exists. Please remove it before running the server.");
+        }
 
         int port = startPort;
 
