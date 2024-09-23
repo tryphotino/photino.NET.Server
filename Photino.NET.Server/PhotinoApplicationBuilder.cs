@@ -1,5 +1,4 @@
 using Microsoft.Extensions.FileProviders;
-using Photino.NET.Extensions;
 using Photino.NET.Options;
 using Photino.NET.Server;
 using System.Net;
@@ -38,7 +37,7 @@ public static class PhotinoApplicationBuilder
     {
         var builder = WebApplication.CreateBuilder(options);
 
-        builder.Services.AddSingleton(new PhotinoWindow());
+        builder.Services.AddSingleton<PhotinoWindow>();
         builder.Services.AddSingleton<PhotinoDevelopmentServer>();
         builder.Services.Configure<PhotinoDevelopmentServerOptions>(options =>
         {
