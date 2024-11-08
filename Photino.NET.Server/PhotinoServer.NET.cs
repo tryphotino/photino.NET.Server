@@ -1,10 +1,9 @@
-using System;
-using System.IO;
-using System.Linq;
-using System.Net.NetworkInformation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.FileProviders;
+using System;
+using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace PhotinoNET.Server;
 
@@ -33,6 +32,7 @@ public class PhotinoServer
         string webRootFolder,
         out string baseUrl)
     {
+        //This will create the web root folder on disk if it doesn't exist
         var builder = WebApplication
             .CreateBuilder(new WebApplicationOptions()
             {
@@ -40,26 +40,19 @@ public class PhotinoServer
                 WebRootPath = webRootFolder
             });
 
-        string embeddedResourcePath = $"Resources/{webRootFolder}";
+        //Try to read files from the embedded resources - from a slightly different path, prefixed with Resources/
+        var manifestEmbeddedFileProvider =
+            new ManifestEmbeddedFileProvider(
+                System.Reflection.Assembly.GetEntryAssembly(),
+                $"Resources/{webRootFolder}");
 
-        if (Directory.Exists(embeddedResourcePath))
-        {
-            var manifestEmbeddedFileProvider =
-                new ManifestEmbeddedFileProvider(
-                    System.Reflection.Assembly.GetEntryAssembly(),
-                    embeddedResourcePath);
+        var physicalFileProvider = builder.Environment.WebRootFileProvider;
 
-            var physicalFileProvider = builder.Environment.WebRootFileProvider;
+        //Try to read from disk first, if not found, try to read from embedded resources.
+        CompositeFileProvider compositeWebProvider
+            = new(physicalFileProvider, manifestEmbeddedFileProvider);
 
-            CompositeFileProvider compositeWebProvider
-                = new(manifestEmbeddedFileProvider, physicalFileProvider);
-
-            builder.Environment.WebRootFileProvider = compositeWebProvider;
-        }
-        else
-        {
-            Console.Error.WriteLine($"The folder {webRootFolder} already exists. Please remove it before running the server.");
-        }
+        builder.Environment.WebRootFileProvider = compositeWebProvider;
 
         int port = startPort;
 
@@ -70,10 +63,7 @@ public class PhotinoServer
             .Any(x => x.Port == port))
         {
             if (port > port + portRange)
-            {
                 throw new SystemException($"Couldn't find open port within range {port - portRange} - {port}.");
-            }
-
             port++;
         }
 
