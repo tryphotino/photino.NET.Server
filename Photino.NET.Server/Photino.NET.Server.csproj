@@ -28,4 +28,8 @@
     </PropertyGroup>
   </Target>
 
+  <ItemGroup>
+	<PackageReference Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.10" />
+  </ItemGroup>
+
 </Project>
