@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Net.NetworkInformation;
 
-namespace PhotinoNET.Server;
+namespace Photino.NET.Server;
 
 /// <summary>
 /// The PhotinoServer class enables users to host their web projects in
