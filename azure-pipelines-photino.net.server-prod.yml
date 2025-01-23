@@ -5,7 +5,7 @@ trigger:
     - manual
 
 variables:
-    major: 3
+    major: 4
     minor: 0
     patch: $[counter(variables['minor'], 0)] #this will reset when we bump minor
     buildConfiguration: "Release"
@@ -18,10 +18,10 @@ jobs:
 
       steps:
           - task: UseDotNet@2
-            displayName: "Use .NET Core sdk"
+            displayName: "Use .NET 9 sdk"
             inputs:
                 packageType: sdk
-                version: 8.0.x
+                version: 9.0.x
                 installationPath: $(Agent.ToolsDirectory)/dotnet
                 
           #Build and Create NuGet package
